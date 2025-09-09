@@ -11,12 +11,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestPropertySource("/application.properties")
 @SpringBootTest
@@ -39,11 +41,11 @@ public class StudentAndGradeServiceTest {
 
     @Test
     public void createStudentService() {
-        studentService.createStudent("Antonio", "Espinoza", "antonio@gmail.com");
+        studentService.createStudent("Antonio", "Espinoza", "antonio3@gmail.com");
 
-        CollegeStudent student = studentDao.findByEmailAddress("antonio@gmail.com");
+        CollegeStudent student = studentDao.findByEmailAddress("antonio3@gmail.com");
 
-        assertEquals("antonio@gmail.com", student.getEmailAddress(), "find by email");
+        assertEquals("antonio3@gmail.com", student.getEmailAddress(), "find by email");
     }
 
     @Test
