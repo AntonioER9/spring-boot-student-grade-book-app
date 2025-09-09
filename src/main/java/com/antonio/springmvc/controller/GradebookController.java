@@ -1,6 +1,8 @@
 package com.antonio.springmvc.controller;
 
+import com.antonio.springmvc.models.CollegeStudent;
 import com.antonio.springmvc.models.Gradebook;
+import com.antonio.springmvc.service.StudentAndGradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +14,14 @@ public class GradebookController {
 	@Autowired
 	private Gradebook gradebook;
 
+    @Autowired
+    private StudentAndGradeService studentService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getStudents(Model m) {
-		return "index";
+		Iterable<CollegeStudent> collegeStudents = studentService.getGradebook();
+        m.addAttribute("students", collegeStudents);
+        return "index";
 	}
 
 
