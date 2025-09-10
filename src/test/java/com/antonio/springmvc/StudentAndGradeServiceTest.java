@@ -1,6 +1,8 @@
 package com.antonio.springmvc;
 
 import com.antonio.springmvc.models.CollegeStudent;
+import com.antonio.springmvc.models.MathGrade;
+import com.antonio.springmvc.repository.MathGradeDao;
 import com.antonio.springmvc.repository.StudentDao;
 import com.antonio.springmvc.service.StudentAndGradeService;
 import org.junit.jupiter.api.AfterEach;
@@ -32,6 +34,9 @@ public class StudentAndGradeServiceTest {
 
     @Autowired
     private StudentDao studentDao;
+
+    @Autowired
+    private MathGradeDao mathGradeDao;
 
     @BeforeEach
     public void setupDatabase() {
@@ -80,6 +85,18 @@ public class StudentAndGradeServiceTest {
         }
 
         assertEquals(5, collegeStudents.size());
+    }
+
+    @Test
+    public void createGradeService() {
+        //Create the grade
+        assertTrue(studentService.createGrade(80.50, 1, "math"));
+
+        //Get all grandes with student id
+        Iterable<MathGrade> mathGrades = mathGradeDao.findGradeByStudentId(1);
+
+        //Verify there is grades
+        assertTrue(mathGrades.iterator().hasNext(), "Student has math grades");
     }
 
     @AfterEach
